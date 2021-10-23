@@ -21,3 +21,6 @@ const fibonacci = num => {
 }
 
 console.log(fibonacci(6));
+
+/*MIND the time complexity of a basic recursion of fibonacci is O(2^n). 
+Memoization prevents a function from redundant calls. We get O(2N - 1) which is the same as O(N) liniar.*/

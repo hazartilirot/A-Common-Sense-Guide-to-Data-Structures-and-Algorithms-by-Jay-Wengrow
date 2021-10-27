@@ -1,9 +1,3 @@
-/*
-
-Chapter 14 Page 240
-
-*/
-
 class Node {
 	#data;
 	#nextNode;
@@ -58,26 +52,4 @@ class DoublyLinkedList {
 	get firstNode() { return this.#firstNode; }
 	get lastNode() { return this.#lastNode; }
 }
-
-
-class Queue {
-
-	#queue;
-	
-	constructor() {
-		this.#queue = new DoublyLinkedList();
-	}
-	
-	enqueue(value) { this.#queue.attachListTail(value); }
-	dequeue() { return this.#queue.removeListHead(); }
-	read() { return this.#queue.firstNode ? this.#queue.firstNode.data : null
-    }
-}
-
-
-
-const queue = new Queue();
-queue.enqueue('String');
-console.log(queue.read());
-queue.dequeue();
-console.log(queue.read());
+export default DoublyLinkedList;

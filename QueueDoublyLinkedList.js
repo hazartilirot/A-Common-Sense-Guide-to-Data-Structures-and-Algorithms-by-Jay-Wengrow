@@ -52,15 +52,14 @@ class DoublyLinkedList {
         } else {
             this.#firstNode = this.#firstNode.next;
         }
-		return removedHead;
+		return removedHead.data;
 	}
 	
 	get firstNode() { return this.#firstNode; }
 	get lastNode() { return this.#lastNode; }
 }
 
-
-class Queue {
+export class Queue {
 
 	#queue;
 	
@@ -70,8 +69,7 @@ class Queue {
 	
 	enqueue(value) { this.#queue.attachListTail(value); }
 	dequeue() { return this.#queue.removeListHead(); }
-	read() { return this.#queue.firstNode ? this.#queue.firstNode.data : null
-    }
+	read() { return this.#queue.firstNode ? this.#queue.firstNode.data : null }
 }
 
 

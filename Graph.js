@@ -1,3 +1,5 @@
+import { Queue } from 'QueueDoublyLinkedList'
+
 class Vertex {
 	#value;
 	#adjacentVertices;
@@ -23,23 +25,66 @@ class Vertex {
 		vertex.insertAdjacentVertex(this);
 	}
 	
-	static traverseDFS(adjancentVertex, markedAsVisited = {}) {
-		markedAsVisited[adjancentVertex.#value] = true;
+	static traverseDFS(adjacentVertex, markedAsVisited = {}) {
+		markedAsVisited[adjacentVertex.#value] = true;
 		
-		console.log(adjancentVertex.#value);
+		console.log(adjacentVertex.#value);
+                        
+        for (let vertex of adjacentVertex.#adjacentVertices) {
+            if (markedAsVisited[vertex.#value]) continue;
+             
+            Vertex.traverseDFS(vertex, markedAsVisited)
+        }
+	}
+	
+	static searchVertex(adjacentVertex, vertexValue, markedAsVisited = {}) {
+        markedAsVisited[adjacentVertex.#value] = true;
 		
-		adjancentVertex.#adjacentVertices.forEach(currentVertex => {
-			if (markedAsVisited[currentVertex.#value]) 
-				return;
-			Vertex.traverseDFS(currentVertex, markedAsVisited)
-		})
+        for (let vertex of adjacentVertex.#adjacentVertices) {
+
+            if (markedAsVisited[vertex.#value]) continue;       
+                        
+            if (vertex.#value === vertexValue) return vertex;
+              
+            const foundVertex = Vertex.searchVertex(vertex, vertexValue, markedAsVisited)
+              
+            if (foundVertex) return foundVertex;
+        }
+        return null;
+	}
+	
+	static traverseBFS(startingVertex) {
+		const markedAsVisited = {}
+		const queue = new Queue();
+		
+		markedAsVisited[startingVertex.#value] = true;
+		
+		queue.enqueue(startingVertex);
+		
+		while (queue.read()) {
+			let currentVertex = queue.dequeue();
+			
+			console.log(currentVertex.#value);
+			
+			for (let vertex of currentVertex.#adjacentVertices) {
+				if (!markedAsVisited[vertex.#value]) {
+                    markedAsVisited[vertex.#value] = true;
+                } else {
+                    continue;
+                }
+				queue.enqueue(vertex);
+			}
+		}
 	}
 	
     printAdjacentVertices() {
       this.#adjacentVertices.forEach(vertex => console.log(vertex.#value))
     }
+    
+    get value() { return this.#value; }
 }
 
+                        
 const alice = new Vertex('Alice');
 const bob = new Vertex('Bob');
 const fred = new Vertex('Fred');
@@ -59,5 +104,8 @@ helen.insertAdjacentVertex(candy);
 derek.insertAdjacentVertex([elaine, gina]);
 gina.insertAdjacentVertex(irena);
 
-Vertex.traverseDFS(alice);
+Vertex.traverseDFS(alice); // "Alice""Bob""Fred""Helen""Candy""Derek""Elaine""Gina""Irena"
+Vertex.traverseBFS(alice); // "Alice""Bob""Candy""Derek""Elaine""Fred""Helen""Gina""Irena"
 
+const foundVertex = Vertex.searchVertex(alice, 'Bob');
+console.log(foundVertex);

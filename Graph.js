@@ -1,3 +1,8 @@
+/*The time complexity of Graph is described as O(V + E)
+Where V stands for the total amount of vertices in the graph and
+E stands for the amount of edges
+*/
+
 import { Queue } from 'QueueDoublyLinkedList'
 
 class Vertex {

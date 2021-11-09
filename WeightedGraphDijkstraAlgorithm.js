@@ -29,7 +29,7 @@ class Analytics {
 		cheapestPrices[startCity.cityName] = 0;
 		let currentCity = startCity;
 
-		while (currentCity !== finalCity) {
+		while (currentCity) {
 			visitedCities[currentCity.cityName] = true;
 
 			unvisitedCities = unvisitedCities.filter(city => city.cityName !== currentCity.cityName);
@@ -56,7 +56,6 @@ class Analytics {
 					currentCity = city;
 				}
 			}
-          
 		}
 		
 		const shortestPath = [];

@@ -38,7 +38,7 @@ class Trie {
 	}
 	
 	collectAllWords(node = null, word = '', words = []) {
-		const currentNode = node || this.#root;
+		const currentNode = node ?? this.#root;
         
 		for (const [key, childNode] of Object.entries(currentNode.children)) {
 			(key === "*")
